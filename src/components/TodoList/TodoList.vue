@@ -1,0 +1,74 @@
+<template>
+    <div class="TodoList">
+        <div class="TodoList__header">
+            <div class="TodoList__header__text">
+                Todo App
+            </div>
+        </div>
+        <div class="TodoList__content">
+            <div class="TodoList__input">
+                <Input @newTodo="newTodoHandler"/>
+            </div>
+            <div class="TodoList__todos">
+                <Todo v-for="(todo, index) in todos" :name="todo.name" :key="index"/>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import Input from '../Input/Input.vue';
+    import Todo from '../Todo/Todo.vue';
+    import {value} from 'vue-function-api';
+
+    export default {
+        components: {
+            Input,
+            Todo
+        },
+        setup() {
+            const todos = value([{name: 'test'}, {name: 'test2'}]);
+
+            const newTodoHandler = (todo) => {
+                todos.value.push({name: todo});
+            };
+
+            return {
+                todos,
+                newTodoHandler
+            };
+        }
+    }
+</script>
+
+<style lang="scss" scoped>
+    @import '../../styles/variables';
+
+    .TodoList {
+        display: flex;
+        flex-direction: column;
+        background: $color__sidebar-panel-bg;
+        color: $color__title-active;
+        border: 1px solid $color__border;
+
+        &__header {
+            position: relative;
+            flex: 0 0 auto;
+            padding: 10px 38px 9px;
+            border-bottom: 1px solid $color__border;
+            background: $color__secondary;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            font-weight: 600;
+            line-height: 1;
+            text-align: center;
+        }
+
+        &__content {
+            padding: 6px;
+        }
+
+        &__input {
+            margin-bottom: 5px;
+        }
+    }
+</style>
