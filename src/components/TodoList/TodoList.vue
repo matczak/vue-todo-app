@@ -7,7 +7,7 @@
         </div>
         <div class="TodoList__content">
             <div class="TodoList__input">
-                <Input @newTodo="newTodoHandler"/>
+                <Input/>
             </div>
             <div class="TodoList__todos">
                 <Todo v-for="(todo, index) in todos" :name="todo.name" :key="index"/>
@@ -17,28 +17,25 @@
 </template>
 
 <script>
-    import Input from '../Input/Input.vue';
-    import Todo from '../Todo/Todo.vue';
-    import {value} from 'vue-function-api';
+  import Input from '../Input/Input.vue';
+  import Todo from '../Todo/Todo.vue';
+  import {value} from 'vue-function-api';
+  import {useStore} from '../../store/store';
 
-    export default {
-        components: {
-            Input,
-            Todo
-        },
-        setup() {
-            const todos = value([{name: 'test'}, {name: 'test2'}]);
+  export default {
+    components: {
+      Input,
+      Todo,
+    },
+    setup() {
+      const store = useStore();
+      const todos = value(store.getters.getTodoList);
 
-            const newTodoHandler = (todo) => {
-                todos.value.push({name: todo});
-            };
-
-            return {
-                todos,
-                newTodoHandler
-            };
-        }
-    }
+      return {
+        todos,
+      };
+    },
+  };
 </script>
 
 <style lang="scss" scoped>

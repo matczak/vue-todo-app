@@ -1,32 +1,34 @@
 <template>
     <form @submit="handleSubmit">
         <input
-                class="Input"
-                v-model="inputValue"
+            class="Input"
+            v-model="inputValue"
         />
     </form>
 </template>
 
 <script>
-    import {value} from 'vue-function-api';
+  import {value} from 'vue-function-api';
+  import {useStore} from '../../store/store';
 
-    export default {
-        setup(props, ctx) {
-            const inputValue = value('');
+  export default {
+    setup() {
+      const store = useStore();
+      const inputValue = value('');
 
-            const handleSubmit = (e) => {
-                e.preventDefault();
-                if (!inputValue.value) return;
-                ctx.emit('newTodo', inputValue.value);
-                inputValue.value = '';
-            };
+      const handleSubmit = (e) => {
+        e.preventDefault();
+        if (!inputValue.value) return;
+        store.dispatch('addTodo', {name: inputValue.value});
+        inputValue.value = '';
+      };
 
-            return {
-                handleSubmit,
-                inputValue
-            }
-        }
-    }
+      return {
+        handleSubmit,
+        inputValue,
+      };
+    },
+  };
 </script>
 
 <style lang="scss" scoped>
