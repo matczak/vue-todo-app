@@ -1,5 +1,5 @@
 <template>
-    <form @submit="handleSubmit">
+    <form @submit.prevent="handleSubmit">
         <input
             class="Input"
             v-model="inputValue"
@@ -16,8 +16,7 @@
       const store = useStore();
       const inputValue = value('');
 
-      const handleSubmit = (e) => {
-        e.preventDefault();
+      const handleSubmit = () => {
         if (!inputValue.value) return;
         store.dispatch('addTodo', {name: inputValue.value});
         inputValue.value = '';
