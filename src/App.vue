@@ -5,13 +5,13 @@
 </template>
 
 <script>
-    import TodoList from "@/components/TodoList/TodoList";
+  import TodoList from '@/components/TodoList/TodoList';
 
-    export default {
-        components: {TodoList},
-        setup() {
-        }
-    }
+  export default {
+    components: {TodoList},
+    setup() {
+    },
+  };
 </script>
 
 <style lang="scss">
